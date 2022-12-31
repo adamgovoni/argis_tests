@@ -12,14 +12,10 @@ import os
 
 from tqdm import tqdm
 
- 
-
 gis = GIS()
 
- 
 
 def reverse_geocode_to_address(path, filename):
-
     _, file_extension = os.path.splitext(os.path.join(path, filename))
 
     if file_extension == '.csv':
@@ -60,9 +56,11 @@ def reverse_geocode_to_address(path, filename):
 
                 address_return = reverse_geocode(location=unknown_pt)
 
-                address = address_return['address']['Address'] + ', ' + address_return['address']['City'] + ', ' + address_return['address']['Region']
+                address = address_return['address']['Address'] + ', ' + address_return['address']['City'] + ', ' + \
+                          address_return['address']['Region']
 
-                m.draw(address_return, popup={'title': address, 'content': f'Time Stamp: {row[2]}<br> Latitude: {row[0]}<br> Longitude: {row[1]}'})
+                m.draw(address_return, popup={'title': address,
+                                              'content': f'Time Stamp: {row[2]}<br> Latitude: {row[0]}<br> Longitude: {row[1]}'})
 
                 address_list.append(address)
 
@@ -80,6 +78,5 @@ def reverse_geocode_to_address(path, filename):
 
     m.export_to_html(os.path.join(path, filename + '_map.html'))
 
- 
 
 reverse_geocode_to_address(path="C:\\path\\to\\file\\", filename="file.csv")
